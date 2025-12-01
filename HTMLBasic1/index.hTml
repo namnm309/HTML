@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Tutorial - Khóa học HTML từ cơ bản đến nâng cao</title>
+    <!-- PrismJS CSS for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css">
+     <style>
+        /* === CSS RESET - Thiết lập lại CSS mặc định === */
+        * {
+            margin: 0;                    /* Xóa margin mặc định của tất cả thẻ HTML */
+            padding: 0;                   /* Xóa padding mặc định của tất cả thẻ HTML */
+            box-sizing: border-box;       /* Tính toán width/height bao gồm cả padding và border */
+        }
+        
+        /* === BODY - Thiết lập chung cho toàn bộ trang web === */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font chữ hiện đại, dễ đọc */
+            line-height: 1.6;            /* Khoảng cách dòng = 1.6 lần font-size để văn bản dễ đọc */
+            color: #333;                  /* Màu chữ xám đậm (#333333) */
+            background: #f8f9fa;          /* Màu nền xám nhạt tạo cảm giác sạch sẽ */
+        }
+        
+        /* === MAIN HEADER - Header chính của trang === */
+        .main-header {
+            background: linear-gradient(135deg, green, green 100%); /* Gradient màu xanh, góc 135 độ */
+            color: white;                 /* Màu chữ trắng để tương phản với nền */
+            padding: 2rem 0;             /* Padding trên-dưới 2rem (32px), trái-phải 0 */
+            text-align: center;          /* Căn giữa tất cả text trong header */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Đổ bóng: X=0, Y=2px, blur=10px, màu đen 10% */
+        }
+        
+        /* === TIÊU ĐỀ CHÍNH trong header === */
+        .main-header h1 {
+            font-size: 2.5rem;          /* Kích thước chữ 2.5rem = 40px (nếu root font = 16px) */
+            margin-bottom: 0.5rem;       /* Khoảng cách phía dưới 0.5rem = 8px */
+        }
+        
+        /* === MÔ TẢ PHỤ trong header === */
+        .main-header p {
+            font-size: 1.2rem;          /* Kích thước chữ 1.2rem = 19.2px */
+            opacity: 0.9;                /* Độ mờ 90% để tạo cấp bậc thị giác */
+        }
+        
+        /* === CONTAINER - Bao bọc nội dung chính === */
+        .container {
+            max-width: 1200px;          /* Chiều rộng tối đa 1200px */
+            margin: 0 auto;             /* Căn giữa container (margin trái-phải auto) */
+            padding: 0 20px;            /* Padding trái-phải 20px để tránh sát lề */
+        }
+        
+        .table-of-contents {
+            background: white;           /* Nền màu trắng để tạo độ tương phản */
+            margin: 2rem auto;           /* Căn giữa với khoảng cách trên-dưới 2rem */
+            padding: 2rem;               /* Khoảng cách bên trong 2rem để nội dung không sát viền */
+            border-radius: 10px;         /* Bo góc 10px để tạo cảm giác mềm mại */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);  /* Đổ bóng nhẹ để tạo chiều sâu */
+            max-width: 800px;            /* Giới hạn chiều rộng tối đa 800px */
+        }
+        
+        .toc-header {
+            text-align: center;          /* Căn giữa tiêu đề */
+            margin-bottom: 2rem;         /* Khoảng cách dưới tiêu đề 2rem */
+            color: #333;                 /* Màu chữ xám đậm để dễ đọc */
+        }
+        
+        .toc-section {
+            margin-bottom: 2rem;         /* Khoảng cách giữa các phần mục lục */
+        }
+        
+        .toc-section h3 {
+            background: linear-gradient(45deg, #667eea, #764ba2);  /* Nền gradient từ xanh dương đến tím */
+            color: white;                /* Màu chữ trắng để tương phản với nền tối */
+            padding: 10px 15px;          /* Padding trên-dưới 10px, trái-phải 15px */
+            border-radius: 8px;          /* Bo góc 8px cho tiêu đề phần */
+            margin-bottom: 1rem;         /* Khoảng cách dưới tiêu đề 1rem */
+        }
+        
+        .toc-list {
+            list-style: none;            /* Bỏ dấu chấm tròn mặc định của list */
+            display: grid;               /* Sử dụng CSS Grid để sắp xếp */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));  /* Tự động chia cột, tối thiểu 300px */
+            gap: 10px;                   /* Khoảng cách giữa các item 10px */
+        }
+        
+        .toc-list li {
+            background: #f8f9fa;        /* Nền xám nhạt cho từng item */
+            border-radius: 5px;          /* Bo góc nhẹ 5px */
+            transition: all 0.3s ease;   /* Hiệu ứng chuyển đổi mượt mà trong 0.3 giây */
+        }
+        
+        .toc-list li:hover {
+            background: #e9ecef;        /* Nền xám đậm hơn khi hover */
+            transform: translateX(5px);  /* Di chuyển sang phải 5px khi hover để tạo hiệu ứng */
+        }
+        
+        .toc-list a {
+            display: block;              /* Hiển thị dạng block để chiếm hết chiều rộng */
+            padding: 12px 15px;          /* Padding trên-dưới 12px, trái-phải 15px */
+            text-decoration: none;       /* Bỏ gạch chân mặc định của link */
+            color: #333;                 /* Màu chữ xám đậm */
+            font-weight: 500;            /* Độ đậm chữ trung bình */
+        }
+        
+        .toc-list a:hover {
+            color: green;                /* Đổi màu chữ thành xanh lá khi hover */
+        }
+        
+        .tutorial-section {
+            background: white;           /* Nền trắng cho từng phần tutorial */
+            margin: 2rem auto;           /* Căn giữa với khoảng cách trên-dưới 2rem */
+            padding: 2rem;               /* Khoảng cách bên trong 2rem */
+            border-radius: 10px;         /* Bo góc 10px */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);  /* Đổ bóng để tạo chiều sâu */
+            max-width: 1000px;           /* Chiều rộng tối đa 1000px */
+        }
+        
+        .section-header {
+            border-bottom: 3px solid green;  /* Viền dưới màu xanh lá dày 3px */
+            padding-bottom: 1rem;        /* Khoảng cách dưới header 1rem */
+            margin-bottom: 2rem;         /* Khoảng cách dưới toàn bộ header 2rem */
+        }
+        
+        .section-title {
+            color: #333;                 /* Màu chữ xám đậm cho tiêu đề */
+            font-size: 2rem;             /* Kích thước chữ 2rem (lớn) */
+            margin-bottom: 0.5rem;       /* Khoảng cách dưới tiêu đề 0.5rem */
+        }
+        
+        .difficulty-badge {
+            display: inline-block;       /* Hiển thị inline-block để có thể đặt padding */
+            padding: 4px 12px;           /* Padding trên-dưới 4px, trái-phải 12px */
+            border-radius: 20px;         /* Bo góc tròn 20px để tạo hình viên thuốc */
+            font-size: 0.8rem;           /* Kích thước chữ nhỏ hơn */
+            font-weight: bold;           /* Chữ đậm */
+            margin-left: 10px;           /* Khoảng cách bên trái 10px */
+        }
+        
+        .difficulty-badge.beginner {
+            background: #d4edda;         /* Nền xanh lá nhạt cho level cơ bản */
+            color: #155724;              /* Chữ xanh lá đậm */
+        }
+        
+        .difficulty-badge.intermediate {
+            background: #fff3cd;         /* Nền vàng nhạt cho level trung bình */
+            color: #856404;              /* Chữ vàng đậm */
+        }
+        
+        .difficulty-badge.advanced {
+            background: #f8d7da;         /* Nền đỏ nhạt cho level nâng cao */
+            color: #721c24;              /* Chữ đỏ đậm */
+        }
+        
+        .back-to-top {
+            position: fixed;             /* Vị trí cố định trên màn hình */
+            bottom: 20px;                /* Cách đáy màn hình 20px */
+            right: 20px;                 /* Cách bên phải màn hình 20px */
+            background: green;           /* Nền màu xanh lá */
+            color: white;                /* Màu chữ trắng */
+            padding: 15px;               /* Padding đều 15px */
+            border-radius: 50%;          /* Bo góc tròn hoàn toàn (hình tròn) */
+            text-decoration: none;       /* Bỏ gạch chân của link */
+            font-size: 1.2rem;           /* Kích thước chữ 1.2rem */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);  /* Đổ bóng để tạo chiều sâu */
+            transition: all 0.3s ease;   /* Hiệu ứng chuyển đổi mượt mà */
+        }
+        
+        .back-to-top:hover {
+            background: green;           /* Giữ nguyên màu xanh lá khi hover */
+            transform: translateY(-3px); /* Di chuyển lên trên 3px khi hover để tạo hiệu ứng nổi */
+        }
+        
+        html {
+            scroll-behavior: smooth;     /* Hiệu ứng cuộn mượt mà cho toàn trang */
+        }
+        
+        /* Sidebar Navigation - Thanh điều hướng bên trái */
+        .sidebar {
+            position: fixed;             /* Vị trí cố định trên màn hình */
+            left: 0;                     /* Đặt ở bên trái màn hình */
+            top: 0;                      /* Đặt ở đầu màn hình */
+            width: 280px;                /* Chiều rộng sidebar 280px */
+            height: 100vh;               /* Chiều cao bằng với chiều cao màn hình */
+            background: linear-gradient(180deg, green, green );  /* Nền gradient xanh lá */
+            color: white;                /* Màu chữ trắng */
+            padding: 20px 0;             /* Padding trên-dưới 20px, trái-phải 0 */
+            overflow-y: auto;            /* Cho phép cuộn dọc nếu nội dung dài */
+            z-index: 1000;               /* Đặt lên trên các element khác */
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);  /* Đổ bóng bên phải */
+            transform: translateX(-100%); /* Ẩn sidebar bằng cách đẩy ra ngoài trái */
+            transition: transform 0.3s ease;  /* Hiệu ứng chuyển đổi mượt mà */
+        }
+        
+        .sidebar.open {
+            transform: translateX(0);    /* Hiển thị sidebar bằng cách đưa về vị trí ban đầu */
+        }
+        
+        .sidebar-header {
+            padding: 0 20px 20px;       /* Padding trên 0, trái-phải 20px, dưới 20px */
+            border-bottom: 1px solid rgba(255,255,255,0.2);  /* Viền dưới màu trắng trong suốt */
+            margin-bottom: 20px;         /* Khoảng cách dưới header 20px */
+        }
+        
+        .sidebar-header h3 {
+            margin: 0;                   /* Bỏ margin mặc định */
+            font-size: 1.4rem;           /* Kích thước chữ tiêu đề sidebar */
+        }
+        
+        .sidebar-nav {
+            padding: 0 10px;             /* Padding trái-phải 10px cho navigation */
+        }
+        
+        .nav-section {
+            margin-bottom: 20px;         /* Khoảng cách dưới mỗi section 20px */
+        }
+        
+        .nav-section h4 {
+            padding: 10px 15px;          /* Padding trên-dưới 10px, trái-phải 15px */
+            margin: 0 0 10px 0;          /* Chỉ có margin dưới 10px */
+            font-size: 0.9rem;           /* Kích thước chữ nhỏ hơn */
+            text-transform: uppercase;   /* Chuyển chữ thành in hoa */
+            letter-spacing: 1px;         /* Khoảng cách giữa các chữ cái 1px */
+            background: rgba(255,255,255,0.1);  /* Nền trắng trong suốt nhẹ */
+            border-radius: 5px;          /* Bo góc 5px */
+        }
+        
+        .nav-item {
+            display: block;              /* Hiển thị dạng block để chiếm hết chiều rộng */
+            padding: 12px 15px;          /* Padding trên-dưới 12px, trái-phải 15px */
+            color: rgba(255,255,255,0.8); /* Màu chữ trắng với độ trong suốt 80% */
+            text-decoration: none;       /* Bỏ gạch chân của link */
+            border-radius: 5px;          /* Bo góc 5px */
+            margin-bottom: 2px;          /* Khoảng cách dưới mỗi item 2px */
+            transition: all 0.3s ease;   /* Hiệu ứng chuyển đổi mượt mà */
+            font-size: 0.9rem;           /* Kích thước chữ 0.9rem */
+        }
+        
+        .nav-item:hover {
+            background: rgba(255,255,255,0.1);  /* Nền trắng trong suốt khi hover */
+            color: white;                /* Màu chữ trắng hoàn toàn khi hover */
+            transform: translateX(5px);  /* Di chuyển sang phải 5px khi hover */
+        }
+        
+        .nav-item.active {
+            background: rgba(255,255,255,0.2);  /* Nền trắng trong suốt đậm hơn cho item active */
+            color: white;                /* Màu chữ trắng */
+            font-weight: bold;           /* Chữ đậm để nhấn mạnh */
+            border-left: 4px solid #FFD700;  /* Viền trái màu vàng để đánh dấu active */
+        }
+        
+        /* Sidebar Toggle Button - Nút bật/tắt sidebar */
+        .sidebar-toggle {
+            position: fixed;             /* Vị trí cố định trên màn hình */
+            left: 20px;                  /* Cách bên trái màn hình 20px */
+            top: 20px;                   /* Cách đầu màn hình 20px */
+            z-index: 1001;               /* Đặt lên trên sidebar (z-index cao hơn) */
+            background: green;           /* Nền màu xanh lá */
+            color: white;                /* Màu chữ/biểu tượng trắng */
+            border: none;                /* Bỏ viền mặc định */
+            padding: 12px;               /* Padding đều 12px */
+            border-radius: 8px;          /* Bo góc 8px */
+            cursor: pointer;             /* Con trỏ chuột thành dạng pointer khi hover */
+            font-size: 1.2rem;           /* Kích thước biểu tượng 1.2rem */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);  /* Đổ bóng để tạo chiều sâu */
+            transition: all 0.3s ease;   /* Hiệu ứng chuyển đổi mượt mà */
+        }
+        
+        .sidebar-toggle:hover {
+            background: #5ad865;         /* Màu xanh lá sáng hơn khi hover */
+            transform: scale(1.05);      /* Phóng to 105% khi hover để tạo hiệu ứng */
+        }
+        
+        /* Content adjustment when sidebar is open - Điều chỉnh nội dung khi sidebar mở */
+        body.sidebar-open {
+            margin-left: 280px;          /* Đẩy nội dung sang phải 280px (bằng chiều rộng sidebar) */
+        }
+        
+
+    </style> 
+</head>
+<!--Header chính-->
+<header class="main-header">
+        <div class="container">
+            <h1>HTML Tutorial</h1>
+            <p>Khóa học HTML từ cơ bản đến nâng cao - Cùng Nam chinh phục HTML lào hẹ hẹ hẹ</p>
+        </div>
+</header>
+
+<!--Body chính-->
+<body>
+    
+
+    <!-- Nút đóng mở sidebar -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()" title="Mở/Đóng Menu">
+        ☰
+    </button>
+    
+    <!-- Tạo các đường dẫn cho sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>HTML Tutorial</h3>
+            <p style="margin: 5px 0 0; font-size: 0.8rem; opacity: 0.8;">Điều hướng nhanh</p>
+        </div>
+        
+        <div class="sidebar-nav">
+            <div class="nav-section">
+                <h4>1. Cơ Bản</h4>
+                <a href="#introduction" class="nav-item" data-section="introduction">1.1 Giới thiệu HTML</a>
+                <a href="#document-structure" class="nav-item" data-section="document-structure">1.2 Cấu trúc tài liệu</a>
+                <a href="#headings" class="nav-item" data-section="headings">1.3 Thẻ tiêu đề</a>
+                <a href="#text-formatting" class="nav-item" data-section="text-formatting">1.4 Định dạng văn bản</a>
+                <a href="#paragraphs" class="nav-item" data-section="paragraphs">1.5 Đoạn văn</a>
+                <a href="#links" class="nav-item" data-section="links">1.6 Liên kết</a>
+                <a href="#images" class="nav-item" data-section="images">1.7 Hình ảnh</a>
+            </div>
+            
+            <div class="nav-section">
+                <h4>2. Trung Cấp</h4>
+                <a href="#lists" class="nav-item" data-section="lists">2.1 Danh sách</a>
+                <a href="#tables" class="nav-item" data-section="tables">2.2 Bảng</a>
+                <a href="#forms-basic" class="nav-item" data-section="forms-basic">2.3 Form cơ bản</a>
+                <a href="#layout-elements" class="nav-item" data-section="layout-elements">2.4 Thẻ bố cục</a>
+                <a href="#media-elements" class="nav-item" data-section="media-elements">2.5 Đa phương tiện</a>
+                <a href="#text-elements" class="nav-item" data-section="text-elements">2.6 Thẻ văn bản</a>
+            </div>
+            
+            <div class="nav-section">
+                <h4>3. Nâng Cao</h4>
+                <a href="#semantic-html" class="nav-item" data-section="semantic-html">3.1 HTML5 Semantic</a>
+                <a href="#interactive-elements" class="nav-item" data-section="interactive-elements">3.2 Thẻ tương tác</a>
+                <a href="#forms-advanced" class="nav-item" data-section="forms-advanced">3.3 Form nâng cao</a>
+
+                <a href="#graphics" class="nav-item" data-section="graphics">3.4 Đồ họa</a>
+                <a href="#scripts-styles" class="nav-item" data-section="scripts-styles">3.5 Script và Style</a>
+                <a href="#definition-lists" class="nav-item" data-section="definition-lists">3.6 Definition List</a>
+                <a href="#image-advanced" class="nav-item" data-section="image-advanced">3.7 Hình ảnh nâng cao</a>
+                <a href="#text-formatting-advanced" class="nav-item" data-section="text-formatting-advanced">3.8 Text Formatting</a>
+                <a href="#special-text" class="nav-item" data-section="special-text">3.9 Văn bản đặc biệt</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="content">
+
+<!-- INTRODUCTION SECTION -->
+<section id="introduction" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            1.1 Giới thiệu HTML
+            <span class="difficulty-badge beginner">Cơ bản</span>
+        </h2>
+        <p>HTML (HyperText Markup Language) là ngôn ngữ đánh dấu cơ bản để tạo trang web</p>
+    </header>
+    
+    <div class="section-content">
+        <h1>Chào mừng bạn đến với khóa học <b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">HTML</b> cơ bản cùng Nam!</h1>
+        <b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+        <pre><code class="language-html">&lt;h1&gt;Chào mừng bạn đến với khóa học &lt;b style="background-color: green; padding: 6px; border-radius: 8px; color: white;"&gt;HTML&lt;/b&gt; cơ bản cùng Nam!&lt;/h1&gt;</code></pre>
+    </div>
+</section>
+
+<!-- DOCUMENT STRUCTURE SECTION -->
+<section id="document-structure" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            1.2 Cấu trúc tài liệu HTML
+            <span class="difficulty-badge beginner">Cơ bản</span>
+        </h2>
+        <p>Tìm hiểu về cấu trúc cơ bản của một tài liệu HTML</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;meta&gt; &lt;title&gt; &lt;head&gt;</code></b><br><br>
+        <pre>
+    Thẻ meta: chứa thông tin metadata của trang
+    Thẻ title: tiêu đề trang (hiển thị trên tab browser)
+    Thẻ head: chứa thông tin header của trang
+    Thẻ body: chứa nội dung chính của trang
+        </pre>
+
+        <b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Cấu trúc HTML cơ bản</b><br><br>
+        <b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="vi"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;meta name="description" content="Mô tả trang web"&gt;
+    &lt;title&gt;Tiêu đề trang web&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Nội dung trang web --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</section>
+
+<!-- INTERACTIVE ELEMENTS SECTION -->
+<section id="interactive-elements" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            3.2 Thẻ tương tác
+            <span class="difficulty-badge advanced">Nâng cao</span>
+        </h2>
+        <p>Các thẻ tương tác như details, summary, progress, meter</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;details&gt; &lt;summary&gt; &lt;progress&gt;</code></b><br><br>
+        <pre>
+    Thẻ details: tạo nội dung có thể thu gọn/mở rộng
+    Thẻ summary: tiêu đề cho thẻ details
+    Thẻ progress: thanh tiến trình
+    Thẻ meter: đo lường giá trị
+        </pre>
+
+        <b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Thẻ interactive elements</b><br><br>
+
+        <details>
+            <summary>Click để xem chi tiết về HTML</summary>
+            <p>HTML (HyperText Markup Language) là ngôn ngữ đánh dấu siêu văn bản, được sử dụng để tạo ra các trang web. HTML sử dụng các thẻ để định nghĩa cấu trúc và nội dung của trang web.</p>
+            <ul>
+                <li>Phiên bản hiện tại: HTML5</li>
+                <li>Được phát triển bởi W3C</li>
+                <li>Hỗ trợ multimedia và interactive elements</li>
+            </ul>
+        </details>
+
+        <br>
+
+        <label for="skill">Kỹ năng HTML của bạn:</label>
+        <progress id="skill" value="70" max="100">70%</progress>
+
+        <br><br>
+
+        <label for="storage">Dung lượng ổ đĩa:</label>
+        <meter id="storage" value="6" min="0" max="10">6 out of 10</meter>
+        <br><br>
+        <b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+        <pre><code class="language-html">&lt;details&gt;
+    &lt;summary&gt;Click để xem chi tiết&lt;/summary&gt;
+    &lt;p&gt;Nội dung chi tiết ở đây...&lt;/p&gt;
+&lt;/details&gt;
+
+&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;
+
+&lt;meter value="6" min="0" max="10"&gt;6 out of 10&lt;/meter&gt;</code></pre>
+    </div>
+</section>
+<section id="horizontal-rule" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            3.3 Đường kẻ ngang
+            <span class="difficulty-badge beginner">Cơ bản</span>
+        </h2>
+        <p>Thẻ hr tạo đường kẻ ngang để phân cách nội dung</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;hr&gt;</code></b><br><br>
+        <p>Thẻ hr tạo đường kẻ ngang để phân cách nội dung</p>
+        <hr>
+        <b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+        <pre><code class="language-html">&lt;hr&gt;</code></pre>
+    </div>
+</section>
+
+<!-- HEADINGS SECTION -->
+<section id="headings" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            1.3 Thẻ tiêu đề (h1-h6)
+            <span class="difficulty-badge beginner">Cơ bản</span>
+        </h2>
+        <p>HTML cung cấp 6 cấp độ tiêu đề từ h1 (quan trọng nhất) đến h6 (ít quan trọng nhất)</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;h1&gt;&lt;/h1&gt;</code></b><br><br>
+
+        <h1>Thẻ h1</h1>
+        <h2>Thẻ h2</h2>
+        <h3>Thẻ h3</h3>
+        <h4>Thẻ h4</h4>
+        <h5>Thẻ h5</h5>
+        <h6>Thẻ h6</h6><br>
+        <b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+        <pre><code class="language-html">&lt;h1&gt;Thẻ h1&lt;/h1&gt;
+&lt;h2&gt;Thẻ h2&lt;/h2&gt;
+&lt;h3&gt;Thẻ h3&lt;/h3&gt;
+&lt;h4&gt;Thẻ h4&lt;/h4&gt;
+&lt;h5&gt;Thẻ h5&lt;/h5&gt;
+&lt;h6&gt;Thẻ h6&lt;/h6&gt;</code></pre>
+    </div>
+</section>
+
+<!-- TEXT FORMATTING SECTION -->
+<section id="text-formatting" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            1.4 Định dạng văn bản
+            <span class="difficulty-badge beginner">Cơ bản</span>
+        </h2>
+        <p>Các thẻ cơ bản để định dạng văn bản: in đậm, in nghiêng, gạch chân, gạch ngang</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;b&gt;&lt;/b&gt; &lt;i&gt;&lt;/i&gt; &lt;u&gt;&lt;/u&gt; &lt;s&gt;&lt;/s&gt;</code></b><br><br>
+        <b>In đậm</b><br>
+        <i>In nghiêng</i><br>
+        <u>Gạch chân</u><br>
+        <s>Gạch ngang</s><br><br>
+        <b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+        <pre><code class="language-html">&lt;b&gt;In đậm&lt;/b&gt;
+&lt;i&gt;In nghiêng&lt;/i&gt;
+&lt;u&gt;Gạch chân&lt;/u&gt;
+&lt;s&gt;Gạch ngang&lt;/s&gt;</code></pre>
+    </div>
+</section>
+
+<!-- PARAGRAPHS SECTION -->
+<section id="paragraphs" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            1.5 Đoạn văn và ngắt dòng
+            <span class="difficulty-badge beginner">Cơ bản</span>
+        </h2>
+        <p>Cách sử dụng thẻ p, br để tạo đoạn văn và ngắt dòng</p>
+    </header>
+    
+    <div class="section-content">
+        <p>Đây là một đoạn văn bình thường với thẻ p.</p>
+        Dòng 1<br>
+        Dòng 2<br>
+        Dòng 3<br><br>
+        
+        <b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+        <pre><code class="language-html">&lt;p&gt;Đây là một đoạn văn bình thường.&lt;/p&gt;
+Dòng 1&lt;br&gt;
+Dòng 2&lt;br&gt;
+Dòng 3</code></pre>
+    </div>
+</section>
+
+<!-- LISTS SECTION -->
+<section id="lists" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            2.1 Danh sách
+            <span class="difficulty-badge intermediate">Trung cấp</span>
+        </h2>
+        <p>Tạo danh sách có thứ tự và không có thứ tự với ul, ol, li</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;ul&gt;&lt;/ul&gt; &lt;ol&gt;&lt;/ol&gt; &lt;li&gt;&lt;/li&gt;</code></b><br><br>
+        <pre>
+    Thẻ ul - unordered list: danh sách không có thứ tự
+    Thẻ ol - ordered list: danh sách có thứ tự
+    Thẻ li - list item: mục trong danh sách    
+        </pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Thẻ không thứ tự</b>
+
+<ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+</ul>
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+<pre><code class="language-html">&lt;ul&gt;
+    &lt;li&gt;HTML&lt;/li&gt;
+    &lt;li&gt;CSS&lt;/li&gt;
+    &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ul&gt;</code>
+</pre>
+
+        <b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Thẻ có thứ tự</b><br><br>
+        <ol>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+        </ol><br>
+        <b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+        <pre><code class="language-html">&lt;ol&gt;
+    &lt;li&gt;HTML&lt;/li&gt;
+    &lt;li&gt;CSS&lt;/li&gt;
+    &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+    </div>
+</section>
+
+<!-- LINKS SECTION -->
+<section id="links" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            1.6 Liên kết
+            <span class="difficulty-badge beginner">Cơ bản</span>
+        </h2>
+        <p>Tạo liên kết đến các trang web khác hoặc trong cùng trang</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;a&gt;&lt;/a&gt;</code></b><br><br>
+        <pre>
+    Có 3 cách để tạo liên kết trong HTML:
+    1. Liên kết đến trang web khác: target="_blank" (tab mới)
+    2. Liên kết trong cùng trang: target="_self" (trang hiện tại)
+    3. Liên kết đến vị trí trong trang: href="#id"
+        </pre>
+
+        <img src="/image/atag.png" alt="Ảnh minh họa liên kết 1" width="900" height="300" style="border: 2px solid #333; border-radius: 8px; max-width: 100%; height: auto;"><br><br>
+        <img src="/image/atag2.png" alt="Ảnh minh họa liên kết 2" width="900" height="300" style="border: 2px solid #333; border-radius: 8px; max-width: 100%; height: auto;"><br><br>
+
+        <a href="https://github.com/namnm309" target="_self">Đây là link Github của Nam [Mở trang hiện tại]</a><br>
+        <a href="https://github.com/namnm309" target="_blank">Đây là link Github của Nam [Mở tab mới]</a><br>
+        <a href="#table-of-contents">Link đến mục lục trong trang này</a><br><br>
+
+        <b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+        <pre><code class="language-html">&lt;a href="https://github.com/namnm309" target="_self"&gt;Link mở trang hiện tại&lt;/a&gt;
+&lt;a href="https://github.com/namnm309" target="_blank"&gt;Link mở tab mới&lt;/a&gt;
+&lt;a href="#table-of-contents"&gt;Link đến vị trí trong trang&lt;/a&gt;</code></pre>
+    </div>
+</section>
+
+<!-- IMAGES SECTION -->
+<section id="images" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            1.7 Hình ảnh
+            <span class="difficulty-badge beginner">Cơ bản</span>
+        </h2>
+        <p>Hiển thị hình ảnh trong HTML với thẻ img</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;img&gt;</code></b><br><br>
+        <pre>
+    Thẻ img dùng để hiển thị hình ảnh trong HTML
+    Thuộc tính src: đường dẫn đến hình ảnh
+    Thuộc tính alt: văn bản thay thế khi không tải được ảnh
+    Thuộc tính width và height: điều chỉnh kích thước ảnh
+        </pre>
+
+        <b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Hình ảnh với kích thước vừa phải</b><br><br>
+        <img src="/image/1.png" alt="Ảnh minh họa" width="300" height="200" style="border: 2px solid #333; border-radius: 8px; max-width: 100%; height: auto;"><br><br>
+        
+        <b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Hình ảnh responsive (tự động điều chỉnh)</b><br><br>
+        <img src="/image/2.png" alt="Ảnh responsive" style="max-width: 100%; height: auto; border: 2px solid #333; border-radius: 8px;"><br><br>
+
+        <b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+        <pre><code class="language-html">&lt;!-- Hình ảnh với kích thước cố định --&gt;
+&lt;img src="/image/1.png" alt="Ảnh minh họa" width="300" height="200"&gt;
+
+&lt;!-- Hình ảnh responsive --&gt;
+&lt;img src="/image/2.png" alt="Ảnh responsive" style="max-width: 100%; height: auto;"&gt;</code></pre>
+    </div>
+</section>
+
+<!-- LAYOUT ELEMENTS SECTION -->
+<section id="layout-elements" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            2.4 Thẻ bố cục (div, span)
+            <span class="difficulty-badge intermediate">Trung cấp</span>
+        </h2>
+        <p>Sử dụng div và span để nhóm và tổ chức nội dung</p>
+    </header>
+    
+    <div class="section-content">        
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;div&gt;&lt;/div&gt; &lt;span&gt;&lt;/span&gt;</code></b><br>
+<br>
+<pre>
+    Thẻ div: là thẻ block-level, tạo khối chứa và xuống dòng
+    Thẻ span: là thẻ inline, chứa nội dung trong cùng dòng
+    Cả hai thường được dùng để nhóm và tạo kiểu cho nội dung
+</pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Thẻ div (block-level)</b>
+<br><br>
+
+<div style="background-color: lightblue; padding: 10px; margin: 5px; border: 1px solid blue;">
+    Đây là thẻ div đầu tiên
+</div>
+<div style="background-color: lightgreen; padding: 10px; margin: 5px; border: 1px solid green;">
+    Đây là thẻ div thứ hai
+</div>
+<br>
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+<pre><code class="language-html">&lt;div style="background-color: lightblue; padding: 10px; margin: 5px; border: 1px solid blue;"&gt;
+    Đây là thẻ div đầu tiên
+&lt;/div&gt;
+&lt;div style="background-color: lightgreen; padding: 10px; margin: 5px; border: 1px solid green;"&gt;
+    Đây là thẻ div thứ hai
+&lt;/div&gt;</code>
+</pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Thẻ span (inline)</b>
+<br><br>
+
+<p>Đây là đoạn văn với <span style="background-color: yellow; color: red;">thẻ span màu đỏ</span> và <span style="background-color: lightblue; color: blue;">thẻ span màu xanh</span> trong cùng dòng.</p>
+
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+        <pre><code class="language-html">&lt;!-- Thẻ div (block-level) --&gt;
+&lt;div style="background-color: lightblue; padding: 10px;"&gt;
+    Đây là thẻ div đầu tiên
+&lt;/div&gt;
+&lt;div style="background-color: lightgreen; padding: 10px;"&gt;
+    Đây là thẻ div thứ hai
+&lt;/div&gt;
+
+&lt;!-- Thẻ span (inline) --&gt;
+&lt;p&gt;Đây là đoạn văn với &lt;span style="background-color: yellow;"&gt;thẻ span màu vàng&lt;/span&gt; trong cùng dòng.&lt;/p&gt;</code></pre>
+    </div>
+</section>
+
+<!-- TABLES SECTION -->
+<section id="tables" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            2.2 Bảng
+            <span class="difficulty-badge intermediate">Trung cấp</span>
+        </h2>
+        <p>Tạo bảng để hiển thị dữ liệu dạng hàng và cột</p>
+    </header>
+    
+    <div class="section-content">
+<!----------------------------------------------------------------------------------------------->
+<b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;table&gt;&lt;/table&gt; &lt;tr&gt;&lt;/tr&gt; &lt;td&gt;&lt;/td&gt;</code></b></br>
+<br>
+<pre>
+    Thẻ table: tạo bảng
+    Thẻ tr (table row): tạo hàng trong bảng
+    Thẻ td (table data): tạo ô dữ liệu trong hàng
+    Thẻ th (table header): tạo ô tiêu đề trong bảng
+</pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Bảng đơn giản</b>
+<br><br>
+
+<table border="1" style="border-collapse: collapse; width: 50%;">
+    <tr>
+        <th>Tên</th>
+        <th>Tuổi</th>
+        <th>Nghề nghiệp</th>
+    </tr>
+    <tr>
+        <td>Nam</td>
+        <td>25</td>
+        <td>Developer</td>
+    </tr>
+    <tr>
+        <td>Hùng</td>
+        <td>30</td>
+        <td>Designer</td>
+    </tr>
+</table>
+
+<br>
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+        <pre><code class="language-html">&lt;table border="1" style="border-collapse: collapse; width: 50%;"&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Tên&lt;/th&gt;
+        &lt;th&gt;Tuổi&lt;/th&gt;
+        &lt;th&gt;Nghề nghiệp&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Nam&lt;/td&gt;
+        &lt;td&gt;25&lt;/td&gt;
+        &lt;td&gt;Developer&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Hùng&lt;/td&gt;
+        &lt;td&gt;30&lt;/td&gt;
+        &lt;td&gt;Designer&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+    </div>
+</section>
+
+<!-- FORMS BASIC SECTION -->
+<section id="forms-basic" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            2.3 Form cơ bản
+            <span class="difficulty-badge intermediate">Trung cấp</span>
+        </h2>
+        <p>Tạo biểu mẫu nhập liệu với form, input, button</p>
+    </header>
+    
+    <div class="section-content">
+<!----------------------------------------------------------------------------------------------->
+<b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;form&gt;&lt;/form&gt; &lt;input&gt; &lt;button&gt;</code></b></br>
+<br>
+<pre>
+    Thẻ form: tạo biểu mẫu để nhập dữ liệu
+    Thẻ input: tạo các trường nhập liệu
+    Thẻ button: tạo nút bấm
+    Thẻ textarea: tạo vùng nhập văn bản nhiều dòng
+    Thẻ select: tạo danh sách thả xuống
+</pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Form đăng ký đơn giản</b>
+<br><br>
+
+<form style="border: 1px solid #ccc; padding: 20px; max-width: 400px;">
+    <label for="name">Họ tên:</label><br>
+    <input type="text" id="name" name="name" style="width: 100%; padding: 8px; margin: 5px 0;"><br><br>
+    
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" style="width: 100%; padding: 8px; margin: 5px 0;"><br><br>
+    
+    <label for="password">Mật khẩu:</label><br>
+    <input type="password" id="password" name="password" style="width: 100%; padding: 8px; margin: 5px 0;"><br><br>
+    
+    <label for="gender">Giới tính:</label><br>
+    <input type="radio" id="male" name="gender" value="male">
+    <label for="male">Nam</label><br>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female">Nữ</label><br><br>
+    
+    <label for="country">Quốc gia:</label><br>
+    <select id="country" name="country" style="width: 100%; padding: 8px; margin: 5px 0;">
+        <option value="vn">Việt Nam</option>
+        <option value="us">Mỹ</option>
+        <option value="jp">Nhật Bản</option>
+    </select><br><br>
+    
+    <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px;">Đăng ký</button>
+</form>
+<br>
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+<pre><code class="language-html">&lt;form&gt;
+    &lt;label for="name"&gt;Họ tên:&lt;/label&gt;&lt;br&gt;
+    &lt;input type="text" id="name" name="name"&gt;&lt;br&gt;&lt;br&gt;
+    
+    &lt;label for="email"&gt;Email:&lt;/label&gt;&lt;br&gt;
+    &lt;input type="email" id="email" name="email"&gt;&lt;br&gt;&lt;br&gt;
+    
+    &lt;input type="radio" id="male" name="gender" value="male"&gt;
+    &lt;label for="male"&gt;Nam&lt;/label&gt;
+    
+    &lt;select id="country" name="country"&gt;
+        &lt;option value="vn"&gt;Việt Nam&lt;/option&gt;
+        &lt;option value="us"&gt;Mỹ&lt;/option&gt;
+    &lt;/select&gt;
+    
+    &lt;button type="submit"&gt;Đăng ký&lt;/button&gt;
+&lt;/form&gt;</code>
+</pre>
+
+<hr>
+<!----------------------------------------------------------------------------------------------->
+<b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;br&gt; &lt;p&gt;&lt;/p&gt; &lt;blockquote&gt;</code></b></br>
+<br>
+<pre>
+    Thẻ br: xuống dòng
+    Thẻ p: đoạn văn
+    Thẻ blockquote: trích dẫn
+    Thẻ code: hiển thị mã code
+    Thẻ pre: giữ nguyên định dạng văn bản
+</pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Các thẻ văn bản</b>
+<br><br>
+
+<p>Đây là một đoạn văn bình thường.</p>
+
+<blockquote style="border-left: 4px solid #ccc; margin: 16px 0; padding-left: 16px; font-style: italic;">
+    "Học không chỉ để biết, mà còn để hiểu và áp dụng." - Nam
+</blockquote>
+
+Dòng 1<br>
+Dòng 2<br>
+Dòng 3
+
+<p>Trong JavaScript, bạn có thể khai báo biến bằng <code>let x = 10;</code></p>
+
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+<pre><code class="language-html">&lt;p&gt;Đây là một đoạn văn bình thường.&lt;/p&gt;
+
+&lt;blockquote&gt;
+    "Học không chỉ để biết, mà còn để hiểu và áp dụng." - Nam
+&lt;/blockquote&gt;
+
+Dòng 1&lt;br&gt;
+Dòng 2&lt;br&gt;
+Dòng 3
+
+&lt;p&gt;Trong JavaScript, bạn có thể khai báo biến bằng &lt;code&gt;let x = 10;&lt;/code&gt;&lt;/p&gt;</code>
+</pre>
+
+<hr>
+<!----------------------------------------------------------------------------------------------->
+    </div>
+</section>
+
+<!-- MEDIA ELEMENTS SECTION -->
+<section id="media-elements" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            2.5 Đa phương tiện (iframe, video, audio)
+            <span class="difficulty-badge intermediate">Trung cấp</span>
+        </h2>
+        <p>Nhúng video, âm thanh và nội dung đa phương tiện</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;iframe&gt; &lt;video&gt; &lt;audio&gt;</code></b><br><br>
+        <pre>
+    Thẻ iframe: nhúng trang web khác
+    Thẻ video: hiển thị video
+    Thẻ audio: phát âm thanh
+        </pre>
+
+        <b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Nhúng YouTube video</b><br><br>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/u6FcPuCs57o?si=bnHbQjfoZS6IwqON" frameborder="0" allowfullscreen style="max-width: 100%;"></iframe><br><br>
+        
+        <b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+        <pre><code class="language-html">&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</code></pre>
+    </div>
+</section>
+
+<!-- TEXT ELEMENTS SECTION -->
+<section id="text-elements" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            2.6 Thẻ văn bản
+            <span class="difficulty-badge intermediate">Trung cấp</span>
+        </h2>
+        <p>Các thẻ văn bản semantic như figure, figcaption, mark, time, abbr</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;figure&gt; &lt;figcaption&gt; &lt;mark&gt;</code></b><br><br>
+        <pre>
+    Thẻ figure: nhóm hình ảnh và chú thích
+    Thẻ figcaption: chú thích cho figure
+    Thẻ mark: đánh dấu văn bản quan trọng
+    Thẻ time: hiển thị thời gian
+    Thẻ abbr: viết tắt
+        </pre>
+
+        <b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Thẻ semantic text</b><br><br>
+
+        <figure style="text-align: center; border: 1px solid #ddd; padding: 10px; max-width: 300px;">
+            <img src="/image/1.png" alt="Logo HTML5" width="200" style="border-radius: 8px;">
+            <figcaption><em>Hình 1: Logo HTML5 - Ngôn ngữ đánh dấu hiện đại</em></figcaption>
+        </figure>
+
+        <p>Đây là <mark>văn bản được đánh dấu</mark> quan trọng.</p>
+        
+        <p>Hôm nay là <time datetime="2025-12-01">1 tháng 12, 2025</time></p>
+        
+        <p><abbr title="HyperText Markup Language">HTML</abbr> là ngôn ngữ đánh dấu.</p>
+
+        <b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+        <pre><code class="language-html">&lt;figure&gt;
+    &lt;img src="image.jpg" alt="Mô tả hình"&gt;
+    &lt;figcaption&gt;Chú thích hình ảnh&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Đây là &lt;mark&gt;văn bản được đánh dấu&lt;/mark&gt; quan trọng.&lt;/p&gt;
+
+&lt;p&gt;Hôm nay là &lt;time datetime="2025-12-01"&gt;1 tháng 12, 2025&lt;/time&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt; là ngôn ngữ đánh dấu.&lt;/p&gt;</code></pre>
+    </div>
+</section>
+
+<!-- SEMANTIC HTML SECTION -->
+<section id="semantic-html" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            3.1 HTML5 Semantic Elements
+            <span class="difficulty-badge advanced">Nâng cao</span>
+        </h2>
+        <p>Các thẻ semantic giúp cấu trúc trang web rõ ràng và có ý nghĩa</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;header&gt; &lt;nav&gt; &lt;main&gt; &lt;section&gt;</code></b><br>
+<br>
+<pre>
+    Thẻ meta: chứa thông tin metadata của trang
+    Thẻ title: tiêu đề trang (hiển thị trên tab browser)
+    Thẻ head: chứa thông tin header của trang
+    Thẻ body: chứa nội dung chính của trang
+</pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Cấu trúc HTML cơ bản</b>
+<br><br>
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="vi"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;meta name="description" content="Mô tả trang web"&gt;
+    &lt;title&gt;Tiêu đề trang web&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Nội dung trang web --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+</pre>
+
+<hr>
+<!----------------------------------------------------------------------------------------------->
+<b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;header&gt; &lt;nav&gt; &lt;main&gt; &lt;section&gt;</code></b></br>
+<br>
+<pre>
+    HTML5 Semantic Elements - Giúp cấu trúc trang web rõ ràng hơn:
+    Thẻ header: phần đầu trang (tiêu đề, logo, menu)
+    Thẻ nav: điều hướng (menu chính)
+    Thẻ main: nội dung chính của trang
+    Thẻ section: phần/mục trong trang
+    Thẻ article: bài viết độc lập
+    Thẻ aside: thanh bên (sidebar)
+    Thẻ footer: phần chân trang
+</pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Cấu trúc trang web với Semantic HTML</b>
+<br><br>
+
+<div style="border: 2px solid #333; padding: 10px; max-width: 800px;">
+    <header style="background-color: #f0f0f0; padding: 15px; text-align: center;">
+        <h2>Header - Đầu trang</h2>
+        <nav style="background-color: #ddd; padding: 10px; margin-top: 10px;">
+            <a href="#home">Trang chủ</a> | 
+            <a href="#about">Giới thiệu</a> | 
+            <a href="#contact">Liên hệ</a>
+        </nav>
+    </header>
+    
+    <main style="display: flex; margin-top: 10px;">
+        <section style="flex: 2; background-color: #f9f9f9; padding: 15px; margin-right: 10px;">
+            <h3>Main Content - Nội dung chính</h3>
+            <article style="background-color: white; padding: 10px; margin: 10px 0; border: 1px solid #ccc;">
+                <h4>Bài viết 1</h4>
+                <p>Đây là nội dung bài viết đầu tiên...</p>
+            </article>
+            <article style="background-color: white; padding: 10px; margin: 10px 0; border: 1px solid #ccc;">
+                <h4>Bài viết 2</h4>
+                <p>Đây là nội dung bài viết thứ hai...</p>
+            </article>
+        </section>
+        
+        <aside style="flex: 1; background-color: #e9e9e9; padding: 15px;">
+            <h4>Aside - Thanh bên</h4>
+            <p>Quảng cáo, liên kết liên quan...</p>
+        </aside>
+    </main>
+    
+    <footer style="background-color: #333; color: white; padding: 15px; text-align: center; margin-top: 10px;">
+        Footer - Chân trang © 2025 Nam
+    </footer>
+</div>
+<br><br>
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+<pre><code class="language-html">&lt;header&gt;
+    &lt;h1&gt;Tiêu đề trang web&lt;/h1&gt;
+    &lt;nav&gt;
+        &lt;a href="#home"&gt;Trang chủ&lt;/a&gt;
+        &lt;a href="#about"&gt;Giới thiệu&lt;/a&gt;
+    &lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+    &lt;section&gt;
+        &lt;h2&gt;Nội dung chính&lt;/h2&gt;
+        &lt;article&gt;
+            &lt;h3&gt;Bài viết 1&lt;/h3&gt;
+            &lt;p&gt;Nội dung bài viết...&lt;/p&gt;
+        &lt;/article&gt;
+    &lt;/section&gt;
+    
+    &lt;aside&gt;
+        &lt;h3&gt;Thanh bên&lt;/h3&gt;
+        &lt;p&gt;Nội dung phụ...&lt;/p&gt;
+    &lt;/aside&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;
+    &lt;p&gt;© 2025 Bản quyền thuộc về Nam&lt;/p&gt;
+&lt;/footer&gt;</code>
+</pre>
+
+<hr>
+<!----------------------------------------------------------------------------------------------->
+<b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;details&gt; &lt;summary&gt; &lt;progress&gt;</code></b></br>
+<br>
+<pre>
+    Thẻ details: tạo nội dung có thể thu gọn/mở rộng
+    Thẻ summary: tiêu đề cho thẻ details
+    Thẻ progress: thanh tiến trình
+    Thẻ meter: đo lường giá trị
+</pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Thẻ interactive elements</b>
+<br><br>
+
+<details>
+    <summary>Click để xem chi tiết về HTML</summary>
+    <p>HTML (HyperText Markup Language) là ngôn ngữ đánh dấu siêu văn bản, được sử dụng để tạo ra các trang web. HTML sử dụng các thẻ để định nghĩa cấu trúc và nội dung của trang web.</p>
+    <ul>
+        <li>Phiên bản hiện tại: HTML5</li>
+        <li>Được phát triển bởi W3C</li>
+        <li>Hỗ trợ multimedia và interactive elements</li>
+    </ul>
+</details>
+
+<br>
+
+<label for="skill">Kỹ năng HTML của bạn:</label>
+<progress id="skill" value="70" max="100">70%</progress>
+
+<br><br>
+
+<label for="storage">Dung lượng ổ đĩa:</label>
+<meter id="storage" value="6" min="0" max="10">6 out of 10</meter>
+<br><br>
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+<pre><code class="language-html">&lt;details&gt;
+    &lt;summary&gt;Click để xem chi tiết&lt;/summary&gt;
+    &lt;p&gt;Nội dung chi tiết ở đây...&lt;/p&gt;
+&lt;/details&gt;
+
+&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;
+
+&lt;meter value="6" min="0" max="10"&gt;6 out of 10&lt;/meter&gt;</code>
+</pre>
+
+<hr>
+<!----------------------------------------------------------------------------------------------->
+<b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;figure&gt; &lt;figcaption&gt; &lt;mark&gt;</code></b></br>
+<br>
+<pre>
+    Thẻ figure: nhóm hình ảnh và chú thích
+    Thẻ figcaption: chú thích cho figure
+    Thẻ mark: đánh dấu văn bản quan trọng
+    Thẻ time: hiển thị thời gian
+    Thẻ abbr: viết tắt
+</pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Thẻ semantic text</b>
+<br><br>
+
+<figure style="text-align: center; border: 1px solid #ddd; padding: 10px; max-width: 300px;">
+    <img src="/image/1.png" alt="Logo HTML5" width="200" style="border-radius: 8px;">
+    <figcaption><em>Hình 1: Logo HTML5 - Ngôn ngữ đánh dấu hiện đại</em></figcaption>
+</figure>
+
+
+
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+<pre><code class="language-html">&lt;figure&gt;
+    &lt;img src="image.jpg" alt="Mô tả hình"&gt;
+    &lt;figcaption&gt;Chú thích hình ảnh&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Đây là &lt;mark&gt;văn bản được đánh dấu&lt;/mark&gt; quan trọng.&lt;/p&gt;
+
+&lt;p&gt;Hôm nay là &lt;time datetime="2025-12-01"&gt;1 tháng 12, 2025&lt;/time&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt; là ngôn ngữ đánh dấu.&lt;/p&gt;</code>
+</pre>
+
+<!-- FORMS ADVANCED SECTION -->
+<section id="forms-advanced" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            3.3 Form nâng cao
+            <span class="difficulty-badge advanced">Nâng cao</span>
+        </h2>
+        <p>Các thẻ form nâng cao như textarea, fieldset, legend, datalist</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;textarea&gt; &lt;fieldset&gt; &lt;legend&gt;</code></b><br>
+        <br>
+<pre>
+    Thẻ textarea: vùng nhập văn bản nhiều dòng
+    Thẻ fieldset: nhóm các trường trong form
+    Thẻ legend: tiêu đề cho fieldset
+    Thẻ datalist: danh sách gợi ý cho input
+</pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Form nâng cao</b>
+<br><br>
+
+<form style="border: 1px solid #ccc; padding: 20px; max-width: 500px;">
+    <fieldset style="margin-bottom: 15px;">
+        <legend>Thông tin cá nhân</legend>
+        
+        <label for="fullname">Họ và tên:</label><br>
+        <input type="text" id="fullname" name="fullname" list="names" style="width: 100%; padding: 8px; margin: 5px 0;">
+        <datalist id="names">
+            <option value="Nguyễn Văn Nam">
+            <option value="Trần Thị Hoa">
+            <option value="Lê Văn Hùng">
+        </datalist><br><br>
+        
+        <label for="bio">Giới thiệu bản thân:</label><br>
+        <textarea id="bio" name="bio" rows="4" style="width: 100%; padding: 8px; margin: 5px 0;" placeholder="Viết vài dòng về bản thân bạn..."></textarea>
+    </fieldset>
+    
+    <fieldset>
+        <legend>Sở thích</legend>
+        
+        <input type="checkbox" id="coding" name="hobby" value="coding">
+        <label for="coding">Lập trình</label><br>
+        
+        <input type="checkbox" id="reading" name="hobby" value="reading">
+        <label for="reading">Đọc sách</label><br>
+        
+        <input type="checkbox" id="music" name="hobby" value="music">
+        <label for="music">Nghe nhạc</label><br>
+    </fieldset>
+    
+    <br>
+    <button type="submit" style="background-color: #008CBA; color: white; padding: 10px 20px; border: none; border-radius: 4px;">Gửi thông tin</button>
+</form>
+<br><br>
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+<pre><code class="language-html">&lt;form&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;Thông tin cá nhân&lt;/legend&gt;
+        
+        &lt;label for="fullname"&gt;Họ và tên:&lt;/label&gt;
+        &lt;input type="text" id="fullname" list="names"&gt;
+        &lt;datalist id="names"&gt;
+            &lt;option value="Nguyễn Văn Nam"&gt;
+            &lt;option value="Trần Thị Hoa"&gt;
+        &lt;/datalist&gt;
+        
+        &lt;textarea rows="4" placeholder="Giới thiệu bản thân..."&gt;&lt;/textarea&gt;
+    &lt;/fieldset&gt;
+    
+    &lt;fieldset&gt;
+        &lt;legend&gt;Sở thích&lt;/legend&gt;
+        &lt;input type="checkbox" id="coding" value="coding"&gt;
+        &lt;label for="coding"&gt;Lập trình&lt;/label&gt;
+    &lt;/fieldset&gt;
+&lt;/form&gt;</code></pre>
+    </div>
+</section>
+
+<!-- GRAPHICS SECTION -->
+<section id="graphics" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            3.4 Đồ họa
+            <span class="difficulty-badge advanced">Nâng cao</span>
+        </h2>
+        <p>Các thẻ đồ họa như canvas, svg, embed</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;canvas&gt; &lt;svg&gt; &lt;embed&gt;</code></b><br>
+<br>
+<pre>
+    Thẻ canvas: vẽ đồ họa bằng JavaScript
+    Thẻ svg: vector graphics
+    Thẻ embed: nhúng nội dung từ nguồn khác
+    Thẻ object: nhúng đối tượng multimedia
+</pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Graphics và Media Elements</b>
+<br><br>
+
+<canvas id="myCanvas" width="200" height="100" style="border: 1px solid black;">
+    Trình duyệt không hỗ trợ Canvas
+</canvas>
+
+<script>
+// Lấy element canvas từ HTML theo ID "myCanvas"
+var canvas = document.getElementById("myCanvas");
+
+// Lấy context 2D để có thể vẽ trên canvas
+var ctx = canvas.getContext("2d");
+
+// Vẽ hình chữ nhật đầu tiên - màu đỏ hồng
+ctx.fillStyle = "#FF6B6B";         // Đặt màu tô là đỏ hồng
+ctx.fillRect(10, 10, 50, 50);       // Vẽ hình chữ nhật tại (x:10, y:10) với kích thước 50x50
+
+// Vẽ hình chữ nhật thứ hai - màu xanh lục nhạt
+ctx.fillStyle = "#4ECDC4";         // Đặt màu tô là xanh lục nhạt
+ctx.fillRect(70, 10, 50, 50);       // Vẽ hình chữ nhật tại (x:70, y:10) với kích thước 50x50
+
+// Vẽ hình chữ nhật thứ ba - màu xanh dương
+ctx.fillStyle = "#45B7D1";         // Đặt màu tô là xanh dương
+ctx.fillRect(130, 10, 50, 50);      // Vẽ hình chữ nhật tại (x:130, y:10) với kích thước 50x50
+</script>
+
+<br><br>
+
+<svg width="200" height="100" style="border: 1px solid blue;">
+    <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+    <rect x="100" y="10" width="80" height="80" style="fill:blue;stroke:pink;stroke-width:5" />
+</svg>
+
+<br><br>
+
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+<pre><code class="language-html">&lt;canvas id="myCanvas" width="200" height="100"&gt;
+    Trình duyệt không hỗ trợ Canvas
+&lt;/canvas&gt;
+
+&lt;svg width="200" height="100"&gt;
+    &lt;circle cx="50" cy="50" r="40" stroke="green" fill="yellow" /&gt;
+    &lt;rect x="100" y="10" width="80" height="80" fill="blue" /&gt;
+&lt;/svg&gt;</code>
+</pre>
+    </div>
+</section>
+
+<!-- SCRIPTS STYLES SECTION -->
+<section id="scripts-styles" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            3.5 Script và Style
+            <span class="difficulty-badge advanced">Nâng cao</span>
+        </h2>
+        <p>Các thẻ script, noscript, link và style</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;script&gt; &lt;noscript&gt; &lt;link&gt;</code></b><br>
+<br>
+<pre>
+    Thẻ script: chèn JavaScript code
+    Thẻ noscript: nội dung hiện khi JavaScript tắt
+    Thẻ link: liên kết tài nguyên ngoài (CSS, favicon...)
+    Thẻ style: CSS nội bộ
+</pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Script và Style Elements</b>
+<br><br>
+
+<div id="demo-text" style="color: blue;">Click vào nút để thay đổi text này!</div>
+<button onclick="changeText()" style="margin: 10px 0; padding: 8px 15px;">Đổi Text</button>
+
+<script>
+function changeText() {
+    document.getElementById("demo-text").innerHTML = "Text đã được thay đổi bằng JavaScript!";
+    document.getElementById("demo-text").style.color = "red";
+}
+</script>
+
+<noscript>
+    <p style="color: red; font-weight: bold;">Trình duyệt của bạn không hỗ trợ JavaScript!</p>
+</noscript>
+
+<br>
+
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+<pre><code class="language-html">&lt;!-- Trong head --&gt;
+&lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;link rel="icon" href="favicon.ico"&gt;
+
+&lt;style&gt;
+    .my-class { color: red; }
+&lt;/style&gt;
+
+&lt;script&gt;
+    function changeText() {
+        document.getElementById("demo").innerHTML = "Changed!";
+    }
+&lt;/script&gt;
+
+&lt;noscript&gt;
+    &lt;p&gt;JavaScript không được hỗ trợ!&lt;/p&gt;
+&lt;/noscript&gt;</code></pre>
+    </div>
+</section>
+
+<!-- DEFINITION LISTS SECTION -->
+<section id="definition-lists" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            3.6 Definition List
+            <span class="difficulty-badge advanced">Nâng cao</span>
+        </h2>
+        <p>Danh sách định nghĩa với dl, dt, dd</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;dl&gt; &lt;dt&gt; &lt;dd&gt;</code></b><br>
+<br>
+<pre>
+    Thẻ dl: definition list (danh sách định nghĩa)
+    Thẻ dt: definition term (thuật ngữ)
+    Thẻ dd: definition description (mô tả)
+</pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Definition List</b>
+<br><br>
+
+<dl>
+    <dt><strong>HTML</strong></dt>
+    <dd>HyperText Markup Language - Ngôn ngữ đánh dấu siêu văn bản</dd>
+    
+    <dt><strong>CSS</strong></dt>
+    <dd>Cascading Style Sheets - Bảng định kiểu xếp tầng</dd>
+    
+    <dt><strong>JavaScript</strong></dt>
+    <dd>Ngôn ngữ lập trình kịch bản phía client</dd>
+</dl>
+
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+<pre><code class="language-html">&lt;dl&gt;
+    &lt;dt&gt;&lt;strong&gt;HTML&lt;/strong&gt;&lt;/dt&gt;
+    &lt;dd&gt;HyperText Markup Language&lt;/dd&gt;
+    
+    &lt;dt&gt;&lt;strong&gt;CSS&lt;/strong&gt;&lt;/dt&gt;
+    &lt;dd&gt;Cascading Style Sheets&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+    </div>
+</section>
+
+<!-- IMAGE ADVANCED SECTION -->
+<section id="image-advanced" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            3.7 Hình ảnh nâng cao
+            <span class="difficulty-badge advanced">Nâng cao</span>
+        </h2>
+        <p>Các thẻ hình ảnh nâng cao như map, area, picture</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;map&gt; &lt;area&gt; &lt;picture&gt;</code></b><br>
+<br>
+<pre>
+    Thẻ map: tạo image map (vùng click trên ảnh)
+    Thẻ area: định nghĩa vùng click trong map
+    Thẻ picture: responsive images với nhiều nguồn
+    Thẻ source: nguồn media cho picture/video/audio
+</pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Advanced Image Elements</b>
+<br><br>
+
+<picture>
+    <source media="(min-width: 650px)" srcset="/image/1.png">
+    <source media="(min-width: 465px)" srcset="/image/2.png">
+    <img src="/image/1.png" alt="Responsive Image" style="width: 200px; border: 1px solid #ccc;">
+</picture>
+
+<br><br>
+
+<img src="/image/1.png" alt="Demo Image Map" usemap="#demo-map" width="200" style="border: 1px solid #ccc;">
+<map name="demo-map">
+    <area shape="rect" coords="0,0,100,100" href="#" alt="Vùng 1" title="Click vào đây!">
+    <area shape="rect" coords="100,0,200,100" href="#" alt="Vùng 2" title="Hoặc vào đây!">
+</map>
+
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+<pre><code class="language-html">&lt;picture&gt;
+    &lt;source media="(min-width: 650px)" srcset="large.jpg"&gt;
+    &lt;source media="(min-width: 465px)" srcset="medium.jpg"&gt;
+    &lt;img src="small.jpg" alt="Responsive Image"&gt;
+&lt;/picture&gt;
+
+&lt;img src="image.jpg" usemap="#mymap"&gt;
+&lt;map name="mymap"&gt;
+    &lt;area shape="rect" coords="0,0,100,100" href="link1.html"&gt;
+    &lt;area shape="circle" coords="150,50,40" href="link2.html"&gt;
+&lt;/map&gt;</code></pre>
+    </div>
+</section>
+
+<!-- TEXT FORMATTING ADVANCED SECTION -->
+<section id="text-formatting-advanced" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            3.8 Text Formatting
+            <span class="difficulty-badge advanced">Nâng cao</span>
+        </h2>
+        <p>Các thẻ định dạng văn bản nâng cao như kbd, samp, var, sub, sup</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;kbd&gt; &lt;samp&gt; &lt;var&gt; &lt;sub&gt; &lt;sup&gt;</code></b><br>
+<br>
+<pre>
+    Thẻ kbd: keyboard input (phím bấm)
+    Thẻ samp: sample output (kết quả mẫu)
+    Thẻ var: variable (biến số)
+    Thẻ sub: subscript (chỉ số dưới)
+    Thẻ sup: superscript (chỉ số trên)
+    Thẻ small: văn bản nhỏ
+</pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Text Formatting Elements</b>
+<br><br>
+
+<p>Để copy text, bấm <kbd>Ctrl</kbd> + <kbd>C</kbd></p>
+<p>Computer output: <samp>File saved successfully!</samp></p>
+<p>Trong công thức này, <var>x</var> là biến số</p>
+<p>Công thức hóa học: H<sub>2</sub>O</p>
+<p>Công thức toán: E = mc<sup>2</sup></p>
+<p>Đây là văn bản <small>nhỏ hơn bình thường</small></p>
+
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+<pre><code class="language-html">&lt;p&gt;Bấm &lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;C&lt;/kbd&gt; để copy&lt;/p&gt;
+&lt;p&gt;Output: &lt;samp&gt;File saved!&lt;/samp&gt;&lt;/p&gt;
+&lt;p&gt;Biến &lt;var&gt;x&lt;/var&gt; trong công thức&lt;/p&gt;
+&lt;p&gt;H&lt;sub&gt;2&lt;/sub&gt;O và E = mc&lt;sup&gt;2&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;&lt;small&gt;Văn bản nhỏ&lt;/small&gt;&lt;/p&gt;</code></pre>
+    </div>
+</section>
+
+<!-- SPECIAL TEXT SECTION -->
+<section id="special-text" class="tutorial-section">
+    <header class="section-header">
+        <h2 class="section-title">
+            3.9 Văn bản đặc biệt
+            <span class="difficulty-badge advanced">Nâng cao</span>
+        </h2>
+        <p>Các thẻ văn bản đặc biệt như wbr, bdi, bdo, ruby</p>
+    </header>
+    
+    <div class="section-content">
+        <b style="background-color: red; padding: 6px; border-radius: 8px; color: white;"><code>&lt;wbr&gt; &lt;bdi&gt; &lt;bdo&gt;</code></b><br>
+<br>
+<pre>
+    Thẻ wbr: word break opportunity (cơ hội ngắt từ)
+    Thẻ bdi: bidirectional isolate (cô lập văn bản hai chiều)
+    Thẻ bdo: bidirectional override (ghi đè hướng văn bản)
+    Thẻ ruby, rt, rp: chú thích đọc (dùng cho tiếng Nhật/Trung)
+</pre>
+
+<b style="background-color: yellow; padding: 6px; border-radius: 8px; color: black;">Special Text Elements</b>
+<br><br>
+
+<p>Đây là một từ rất dài: Super<wbr>cali<wbr>fragi<wbr>listic<wbr>expiali<wbr>docious</p>
+
+<p>Username: <bdi>إيان</bdi> (Arabic text)</p>
+
+<p><bdo dir="rtl">Dòng text này được đảo ngược!</bdo></p>
+
+<ruby>
+漢 <rp>(</rp><rt>Kan</rt><rp>)</rp>
+字 <rp>(</rp><rt>ji</rt><rp>)</rp>
+</ruby>
+
+<b style="background-color: green; padding: 6px; border-radius: 8px; color: white;">Code :</b>
+
+<pre><code class="language-html">&lt;p&gt;Từ dài: Super&lt;wbr&gt;cali&lt;wbr&gt;fragi&lt;wbr&gt;listic&lt;/p&gt;
+&lt;p&gt;User: &lt;bdi&gt;إيان&lt;/bdi&gt;&lt;/p&gt;
+&lt;p&gt;&lt;bdo dir="rtl"&gt;Text đảo ngược!&lt;/bdo&gt;&lt;/p&gt;
+
+&lt;ruby&gt;
+漢 &lt;rp&gt;(&lt;/rp&gt;&lt;rt&gt;Kan&lt;/rt&gt;&lt;rp&gt;)&lt;/rp&gt;
+字 &lt;rp&gt;(&lt;/rp&gt;&lt;rt&gt;ji&lt;/rt&gt;&lt;rp&gt;)&lt;/rp&gt;
+&lt;/ruby&gt;</code></pre>
+    </div>
+</section>
+
+
+
+    </main>
+
+   
+    <!-- Back to Top Button -->
+    <a href="#introduction" class="back-to-top" title="Về đầu trang">↑</a>
+
+    <!-- JavaScript for enhanced functionality -->
+    <script>
+        // Chức năng điều khiển sidebar - Bật/tắt thanh điều hướng bên trái
+        function toggleSidebar() {
+            // Lấy element sidebar từ DOM theo ID
+            const sidebar = document.getElementById('sidebar');
+            // Lấy element body của trang
+            const body = document.body;
+            
+            // Toggle class 'open' cho sidebar để hiện/ẩn sidebar
+            // CSS sẽ dựa vào class này để thực hiện animation transform
+            sidebar.classList.toggle('open');
+            
+            // Toggle class 'sidebar-open' cho body để điều chỉnh layout nội dung chính
+            // CSS sẽ thêm margin-left cho body khi sidebar mở
+            body.classList.toggle('sidebar-open');
+        }
+        
+
+        
+        // Tự động mở sidebar khi trang web load xong
+        // Event listener này sẽ chạy khi toàn bộ trang (HTML, CSS, images) đã tải xong
+        window.addEventListener('load', () => {
+            toggleSidebar();  // Gọi hàm mở sidebar để hiện sidebar ngay khi vào trang
+        });
+
+        // Chức năng cuộn mượt mà cho các liên kết điều hướng
+        // Tìm tất cả các thẻ <a> có href bắt đầu bằng "#" (internal links)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            // Thêm event listener cho mỗi anchor link
+            anchor.addEventListener('click', function (e) {
+                // Ngăn chặn hành vi mặc định của link (jump ngay lập tức)
+                e.preventDefault();
+                
+                // Tìm element target dựa trên href của link được click
+                const target = document.querySelector(this.getAttribute('href'));
+                
+                // Nếu tìm thấy target element
+                if (target) {
+                    // Cuộn đến target với hiệu ứng mượt mà
+                    target.scrollIntoView({
+                        behavior: 'smooth',    // Cuộn mượt mà thay vì nhảy ngay lập tức
+                        block: 'start'        // Đưa target lên đầu viewport
+                    });
+                }
+            });
+        });
+
+        // Theo dõi phần đang active - Cập nhật trạng thái active cho sidebar navigation
+        function updateActiveSection() {
+            // Lấy tất cả các section có ID (các phần nội dung chính)
+            const sections = document.querySelectorAll('.tutorial-section[id]');
+            // Lấy tất cả các navigation item trong sidebar
+            const navItems = document.querySelectorAll('.nav-item[data-section]');
+            
+            // Biến lưu ID của section hiện tại đang được xem
+            let current = '';
+            
+            // Duyệt qua từng section để kiểm tra section nào đang được xem
+            sections.forEach(section => {
+                // Tính vị trí top của section (trừ 100px để tạo offset)
+                const sectionTop = section.offsetTop - 100;
+                // Lấy chiều cao của section
+                const sectionHeight = section.clientHeight;
+                
+                // Kiểm tra xem vị trí scroll hiện tại có nằm trong section này không
+                // window.pageYOffset: vị trí scroll hiện tại từ đầu trang
+                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                    // Nếu đúng, lưu ID của section này làm section hiện tại
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            // Cập nhật trạng thái active trong sidebar navigation
+            navItems.forEach(item => {
+                // Loại bỏ class 'active' khỏi tất cả nav items
+                item.classList.remove('active');
+                
+                // Nếu data-section của nav item trùng với section hiện tại
+                if (item.getAttribute('data-section') === current) {
+                    // Thêm class 'active' để highlight nav item này
+                    item.classList.add('active');
+                }
+            });
+        }
+        
+        // Theo dõi sự kiện scroll để cập nhật section active và nút "về đầu trang"
+        window.addEventListener('scroll', () => {
+            // Gọi hàm cập nhật section active mỗi khi scroll
+            updateActiveSection();
+            
+            // Điều khiển hiện/ẩn nút "Về đầu trang"
+            const backToTop = document.querySelector('.back-to-top');
+            // Nếu scroll xuống hơn 300px từ đầu trang
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'block';    // Hiện nút "về đầu trang"
+            } else {
+                backToTop.style.display = 'none';     // Ẩn nút khi ở gần đầu trang
+            }
+        });
+
+        // Khởi tạo trạng thái khi trang load xong
+        window.addEventListener('load', () => {
+            // Cập nhật section active lần đầu khi trang vừa tải
+            updateActiveSection();
+            
+            // Ẩn nút "về đầu trang" ban đầu (vì đang ở đầu trang)
+            const backToTop = document.querySelector('.back-to-top');
+            backToTop.style.display = 'none';
+        });
+    </script>
+
+    <!-- Add PrismJS JavaScript for syntax highlighting -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>
